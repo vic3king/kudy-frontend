@@ -10,9 +10,18 @@ export const getters = {
             return { ...filteredUsers[0] };
         }
     },
+    investments: (state: AdminState) => state.investments,
+    adminOneInvestment: (state: AdminState) => (investmentId: number) => {
+        const filteredInvestments = state.investments.filter((investment) => investment.id === investmentId);
+        if (filteredInvestments.length > 0) {
+            return { ...filteredInvestments[0] };
+        }
+    },
 };
 
 const { read } = getStoreAccessors<AdminState, State>('');
 
 export const readAdminOneUser = read(getters.adminOneUser);
 export const readAdminUsers = read(getters.adminUsers);
+export const readAdminOneInvestment = read(getters.adminOneInvestment);
+export const readInvestments = read(getters.investments);

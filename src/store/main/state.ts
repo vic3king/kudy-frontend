@@ -1,4 +1,4 @@
-import { IUserProfile } from '@/interfaces';
+import { IUserProfile, IInvestment, IWalletBalance } from '@/interfaces';
 
 export interface AppNotification {
     content: string;
@@ -11,6 +11,8 @@ export interface MainState {
     isLoggedIn: boolean | null;
     logInError: boolean;
     userProfile: IUserProfile | null;
+    investment: IInvestment | null,
+    walletBalance: IWalletBalance | null,
     dashboardMiniDrawer: boolean;
     dashboardShowDrawer: boolean;
     notifications: AppNotification[];

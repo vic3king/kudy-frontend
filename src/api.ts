@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { apiUrl } from '@/env';
-import { IUserProfile, IUserProfileUpdate, IUserProfileCreate } from './interfaces';
+import { IUserProfile, IUserProfileUpdate, IUserProfileCreate, IInvestmentCreate, IInvestment, IInvestmentUpdate, IInvest, IWalletBalance, ITopUp } from './interfaces';
 
 function authHeaders(token: string) {
   return {
@@ -19,18 +19,11 @@ export const api = {
     return axios.post(`${apiUrl}/api/v1/login/access-token`, params);
   },
 
-  // async signUpGetToken(username: string, password: string, full_name:string) {
-  //   const params = new URLSearchParams();
-  //   params.append('username', username);
-  //   params.append('password', password);
-  //   params.append('full_name', full_name);
-  //   // params.append('password', password);
-
-  //   return axios.post(`${apiUrl}/api/v1/register`, params);
-  // },
-
   async getMe(token: string) {
     return axios.get<IUserProfile>(`${apiUrl}/api/v1/users/me`, authHeaders(token));
+  },
+  async getMyWallet(token: string) {
+    return axios.get<IWalletBalance>(`${apiUrl}/api/v1/wallet/me`, authHeaders(token));
   },
   async updateMe(token: string, data: IUserProfileUpdate) {
     return axios.put<IUserProfile>(`${apiUrl}/api/v1/users/me`, data, authHeaders(token));
@@ -44,8 +37,25 @@ export const api = {
   async createUser(token: string, data: IUserProfileCreate) {
     return axios.post(`${apiUrl}/api/v1/users/`, data, authHeaders(token));
   },
+
+  async createInvestment(token: string, data: IInvestmentCreate) {
+    return axios.post(`${apiUrl}/api/v1/investments`, data, authHeaders(token));
+  },
+  async getInvestments(token: string) {
+    return axios.get<IInvestment[]>(`${apiUrl}/api/v1/investments/`, authHeaders(token));
+  },
+  async updateInvestment(token: string, investmentId: number, data: IInvestmentUpdate) {
+    return axios.patch(`${apiUrl}/api/v1/investments/${investmentId}`, data, authHeaders(token));
+  },
   async register(data: IUserProfileCreate) {
     return axios.post(`${apiUrl}/api/v1/users/register`, data);
+  },
+  async invest(token: string, data: IInvest) {
+    return axios.post(`${apiUrl}/api/v1/investments/invest`, data, authHeaders(token));
+  },
+
+  async topUp(token: string, data: ITopUp) {
+    return axios.post(`${apiUrl}/api/v1/wallet/top-up`, data, authHeaders(token));
   },
   async passwordRecovery(email: string) {
     return axios.post(`${apiUrl}/api/v1/password-recovery/${email}`);

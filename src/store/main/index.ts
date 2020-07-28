@@ -8,6 +8,8 @@ const defaultState: MainState = {
   token: '',
   logInError: false,
   userProfile: null,
+  walletBalance: null,
+  investment: null,
   dashboardMiniDrawer: false,
   dashboardShowDrawer: true,
   notifications: [],

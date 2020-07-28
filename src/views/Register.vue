@@ -9,10 +9,6 @@
           <v-form v-model="valid" ref="form" lazy-validation>
             <v-text-field label="Full Name" v-model="fullName" required></v-text-field>
             <v-text-field label="E-mail" type="email" v-model="email" v-validate="'required|email'" data-vv-name="email" :error-messages="errors.collect('email')" required></v-text-field>
-            <div class="subheading secondary--text text--lighten-2">User is superuser <span v-if="isSuperuser">(currently is a superuser)</span><span v-else>(currently is not a superuser)</span></div>
-            <v-checkbox label="Is Superuser" v-model="isSuperuser"></v-checkbox>
-            <div class="subheading secondary--text text--lighten-2">User is active <span v-if="isActive">(currently active)</span><span v-else>(currently not active)</span></div>
-            <v-checkbox label="Is Active" v-model="isActive"></v-checkbox>
             <v-layout align-center>
               <v-flex>
                 <v-text-field type="password" ref="password" label="Set Password" data-vv-name="password" data-vv-delay="100" v-validate="{required: true}" v-model="password1" :error-messages="errors.first('password')">
@@ -43,7 +39,7 @@ import {
   IUserProfileUpdate,
   IUserProfileCreate,
 } from '@/interfaces';
-import { dispatchGetUsers, dispatchCreateUser } from '@/store/admin/actions';
+import { dispatchRegister } from '@/store/main/actions';
 
 @Component
 export default class CreateUser extends Vue {
@@ -55,11 +51,6 @@ export default class CreateUser extends Vue {
   public setPassword = false;
   public password1: string = '';
   public password2: string = '';
-
-  public async mounted() {
-    await dispatchGetUsers(this.$store);
-    this.reset();
-  }
 
   public reset() {
     this.password1 = '';
@@ -76,6 +67,7 @@ export default class CreateUser extends Vue {
   }
 
   public async submit() {
+
     if (await this.$validator.validateAll()) {
       const updatedProfile: IUserProfileCreate = {
         email: this.email,
@@ -89,8 +81,7 @@ export default class CreateUser extends Vue {
       updatedProfile.is_active = this.isActive;
       updatedProfile.is_superuser = this.isSuperuser;
       updatedProfile.password = this.password1;
-      await dispatchCreateUser(this.$store, updatedProfile);
-      this.$router.push('/main/admin/users');
+      await dispatchRegister(this.$store, updatedProfile);
     }
   }
 }
