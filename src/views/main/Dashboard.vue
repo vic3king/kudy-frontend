@@ -6,7 +6,6 @@
       </v-card-title>
       <v-card-text>
         <div class="headline font-weight-light ma-5">Welcome {{greetedUser}}!</div>
-        <div class="headline font-weight-light ma-5">Your Wallet Balance is:  #{{walletBalance.balance}}</div>
       </v-card-text>
       <v-card-actions>
         <v-btn to="/main/profile/view">View Profile</v-btn>
@@ -32,13 +31,6 @@ export default class Dashboard extends Vue {
       } else {
         return userProfile.email;
       }
-    }
-  }
-
-  get walletBalance() {
-    const userWalletBalance = readUserWalletBalance(this.$store);
-    if (userWalletBalance) {
-      return userWalletBalance;
     }
   }
 }

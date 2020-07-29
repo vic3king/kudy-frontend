@@ -36,7 +36,7 @@
               <v-list-tile-title>Change Password</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-          <v-list-tile to="/main/profile/transactions">
+          <v-list-tile subheader  v-show="hasUserAccess" to="/main/profile/transactions">
             <v-list-tile-action>
               <v-icon>euro</v-icon>
             </v-list-tile-action>
