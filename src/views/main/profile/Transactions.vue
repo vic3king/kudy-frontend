@@ -63,16 +63,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { Store } from "vuex";
+import { Component, Vue } from 'vue-property-decorator';
+import { Store } from 'vuex';
 import {
   readUserWalletBalance,
   readTransactionHistory,
-} from "@/store/main/getters";
+} from '@/store/main/getters';
 import {
   dispatchGetTransactionsHistory,
   dispatchGetInvestmentsHistory,
-} from "@/store/main/actions";
+} from '@/store/main/actions';
 @Component
 export default class UserProfile extends Vue {
   get walletBalance() {
@@ -90,8 +90,8 @@ export default class UserProfile extends Vue {
     await dispatchGetTransactionsHistory(this.$store);
   }
 
-  sortBy(prop) {
-      this.transactions.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
+  public sortBy(prop) {
+      this.transactions.sort((a, b) => a[prop] < b[prop] ? -1 : 1);
     }
 }
 </script>

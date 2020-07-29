@@ -16,7 +16,7 @@ export const mutations = {
         state.investments = payload;
     },
     setInvestment(state: AdminState, payload: IInvestment) {
-        const investments = state.investments
+        const investments = state.investments;
         investments.push(payload);
         state.investments = investments;
     },

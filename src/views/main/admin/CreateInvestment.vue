@@ -29,18 +29,18 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { IInvestmentCreate } from "@/interfaces";
+import { Component, Vue } from 'vue-property-decorator';
+import { IInvestmentCreate } from '@/interfaces';
 import {
   dispatchGetInvestments,
   dispatchCreateInvestment,
-} from "@/store/admin/actions";
+} from '@/store/admin/actions';
 
 @Component
 export default class CreateInvestment extends Vue {
   public valid = false;
-  public Name: string = "";
-  public Description: string = "";
+  public Name: string = '';
+  public Description: string = '';
   public Rate: number = 0;
   public LockPeriod: number = 0;
 
@@ -50,8 +50,8 @@ export default class CreateInvestment extends Vue {
   }
 
   public reset() {
-    this.Name = "";
-    this.Description = "";
+    this.Name = '';
+    this.Description = '';
     this.Rate = 0;
     this.LockPeriod = 0;
     this.$validator.reset();
@@ -71,7 +71,7 @@ export default class CreateInvestment extends Vue {
       };
 
       await dispatchCreateInvestment(this.$store, updatedInvestment);
-      this.$router.push("/main/admin/investments");
+      this.$router.push('/main/admin/investments');
     }
   }
 }

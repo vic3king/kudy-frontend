@@ -22,11 +22,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { Store } from "vuex";
-import { readUserProfile } from "@/store/main/getters";
-import { ITopUp } from "@/interfaces";
-import { dispatchTopUp, dispatchGetUserProfile, dispatchGetUserWallet } from "@/store/main/actions";
+import { Component, Vue } from 'vue-property-decorator';
+import { Store } from 'vuex';
+import { readUserProfile } from '@/store/main/getters';
+import { ITopUp } from '@/interfaces';
+import { dispatchTopUp, dispatchGetUserProfile, dispatchGetUserWallet } from '@/store/main/actions';
 
 @Component
 export default class CreateInvestment extends Vue {
@@ -58,7 +58,7 @@ export default class CreateInvestment extends Vue {
       };
 
       await dispatchTopUp(this.$store, updatedTopUp);
-      await dispatchGetUserWallet(this.$store)
+      await dispatchGetUserWallet(this.$store);
     }
   }
 }

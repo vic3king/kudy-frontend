@@ -43,54 +43,54 @@
 
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { Store } from "vuex";
-import { IInvestment, IWithdrawInvestment } from "@/interfaces";
-import { readInvestments } from "@/store/admin/getters";
+import { Component, Vue } from 'vue-property-decorator';
+import { Store } from 'vuex';
+import { IInvestment, IWithdrawInvestment } from '@/interfaces';
+import { readInvestments } from '@/store/admin/getters';
 import {
   dispatchInvest,
   dispatchGetInvestmentsHistory,
   dispatchWithdrawInvestment,
   dispatchGetUserWallet,
-} from "@/store/main/actions";
-import { readInvestmentHistory } from "../../store/main/getters";
+} from '@/store/main/actions';
+import { readInvestmentHistory } from '../../store/main/getters';
 
 @Component
 export default class Investments extends Vue {
   public headers = [
     {
-      text: "Name",
+      text: 'Name',
       sortable: true,
-      value: "name",
-      align: "left",
+      value: 'name',
+      align: 'left',
     },
     {
-      text: "Description",
+      text: 'Description',
       sortable: true,
-      value: "description",
-      align: "left",
+      value: 'description',
+      align: 'left',
     },
     {
-      text: "Name",
+      text: 'Name',
       sortable: true,
-      value: "name",
-      align: "left",
+      value: 'name',
+      align: 'left',
     },
     {
-      text: "Rate",
+      text: 'Rate',
       sortable: true,
-      value: "rate",
-      align: "left",
+      value: 'rate',
+      align: 'left',
     },
     {
-      text: "Lock Period",
+      text: 'Lock Period',
       sortable: true,
-      value: "lock_period",
-      align: "left",
+      value: 'lock_period',
+      align: 'left',
     },
     {
-      text: "Actions",
-      value: "id",
+      text: 'Actions',
+      value: 'id',
     },
   ];
   get investments() {
@@ -101,9 +101,9 @@ export default class Investments extends Vue {
     await dispatchGetInvestmentsHistory(this.$store);
   }
 
-  public async withdrawInvestment(investment_id) {
+  public async withdrawInvestment(investmentId) {
     const withdrawInvestment: IWithdrawInvestment = {
-      investment_id,
+      investment_id: investmentId,
     };
 
     await dispatchWithdrawInvestment(this.$store, withdrawInvestment);

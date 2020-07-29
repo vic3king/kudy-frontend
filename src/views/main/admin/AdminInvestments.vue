@@ -36,49 +36,49 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { Store } from "vuex";
-import { IInvestment } from "@/interfaces";
-import { readInvestments } from "@/store/admin/getters";
-import { dispatchGetInvestments } from "@/store/admin/actions";
+import { Component, Vue } from 'vue-property-decorator';
+import { Store } from 'vuex';
+import { IInvestment } from '@/interfaces';
+import { readInvestments } from '@/store/admin/getters';
+import { dispatchGetInvestments } from '@/store/admin/actions';
 // import { dispatchGetUserWallet } from "@/store/main/actions";
 
 @Component
 export default class AdminInvestments extends Vue {
   public headers = [
     {
-      text: "Name",
+      text: 'Name',
       sortable: true,
-      value: "title",
-      align: "left",
+      value: 'title',
+      align: 'left',
     },
     {
-      text: "Name",
+      text: 'Name',
       sortable: true,
-      value: "name",
-      align: "left",
+      value: 'name',
+      align: 'left',
     },
     {
-      text: "Description",
+      text: 'Description',
       sortable: true,
-      value: "description",
-      align: "left",
+      value: 'description',
+      align: 'left',
     },
     {
-      text: "Rate(%)",
+      text: 'Rate(%)',
       sortable: true,
-      value: "rate",
-      align: "left",
+      value: 'rate',
+      align: 'left',
     },
     {
-      text: "Lock Period(days)",
+      text: 'Lock Period(days)',
       sortable: true,
-      value: "lock_period",
-      align: "left",
+      value: 'lock_period',
+      align: 'left',
     },
     {
-      text: "Actions",
-      value: "id",
+      text: 'Actions',
+      value: 'id',
     },
   ];
   get investments() {

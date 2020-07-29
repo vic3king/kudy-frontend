@@ -1,5 +1,5 @@
-import axios from "axios";
-import { apiUrl } from "@/env";
+import axios from 'axios';
+import { apiUrl } from '@/env';
 import {
   IUserProfile,
   IUserProfileUpdate,
@@ -12,8 +12,8 @@ import {
   ITopUp,
   IInvestmentHistory,
   ITransactionHistory,
-  IWithdrawInvestment
-} from "./interfaces";
+  IWithdrawInvestment,
+} from './interfaces';
 
 function authHeaders(token: string) {
   return {
@@ -26,8 +26,8 @@ function authHeaders(token: string) {
 export const api = {
   async logInGetToken(username: string, password: string) {
     const params = new URLSearchParams();
-    params.append("username", username);
-    params.append("password", password);
+    params.append('username', username);
+    params.append('password', password);
 
     return axios.post(`${apiUrl}/api/v1/login/access-token`, params);
   },
@@ -35,27 +35,27 @@ export const api = {
   async getMe(token: string) {
     return axios.get<IUserProfile>(
       `${apiUrl}/api/v1/users/me`,
-      authHeaders(token)
+      authHeaders(token),
     );
   },
   async getMyWallet(token: string) {
     return axios.get<IWalletBalance>(
       `${apiUrl}/api/v1/wallet/me`,
-      authHeaders(token)
+      authHeaders(token),
     );
   },
 
   async getMyInvestmentHistory(token: string) {
     return axios.get<IInvestmentHistory[]>(
       `${apiUrl}/api/v1/investments/history`,
-      authHeaders(token)
+      authHeaders(token),
     );
   },
 
   async getMyTransactionHistory(token: string) {
     return axios.get<ITransactionHistory[]>(
       `${apiUrl}/api/v1/transactions/history`,
-      authHeaders(token)
+      authHeaders(token),
     );
   },
 
@@ -63,20 +63,20 @@ export const api = {
     return axios.put<IUserProfile>(
       `${apiUrl}/api/v1/users/me`,
       data,
-      authHeaders(token)
+      authHeaders(token),
     );
   },
   async getUsers(token: string) {
     return axios.get<IUserProfile[]>(
       `${apiUrl}/api/v1/users/`,
-      authHeaders(token)
+      authHeaders(token),
     );
   },
   async updateUser(token: string, userId: number, data: IUserProfileUpdate) {
     return axios.put(
       `${apiUrl}/api/v1/users/${userId}`,
       data,
-      authHeaders(token)
+      authHeaders(token),
     );
   },
   async createUser(token: string, data: IUserProfileCreate) {
@@ -89,18 +89,18 @@ export const api = {
   async getInvestments(token: string) {
     return axios.get<IInvestment[]>(
       `${apiUrl}/api/v1/investments/`,
-      authHeaders(token)
+      authHeaders(token),
     );
   },
   async updateInvestment(
     token: string,
     investmentId: number,
-    data: IInvestmentUpdate
+    data: IInvestmentUpdate,
   ) {
     return axios.patch(
       `${apiUrl}/api/v1/investments/${investmentId}`,
       data,
-      authHeaders(token)
+      authHeaders(token),
     );
   },
   async register(data: IUserProfileCreate) {
@@ -110,7 +110,7 @@ export const api = {
     return axios.post(
       `${apiUrl}/api/v1/investments/invest`,
       data,
-      authHeaders(token)
+      authHeaders(token),
     );
   },
 
@@ -118,7 +118,7 @@ export const api = {
     return axios.post(
       `${apiUrl}/api/v1/investments/withdraw`,
       data,
-      authHeaders(token)
+      authHeaders(token),
     );
   },
 
@@ -126,7 +126,7 @@ export const api = {
     return axios.post(
       `${apiUrl}/api/v1/wallet/top-up`,
       data,
-      authHeaders(token)
+      authHeaders(token),
     );
   },
   async passwordRecovery(email: string) {

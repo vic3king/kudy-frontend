@@ -37,13 +37,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { Store } from "vuex";
-import { readUserProfile } from "@/store/main/getters";
-import { IInvest } from "@/interfaces";
+import { Component, Vue } from 'vue-property-decorator';
+import { Store } from 'vuex';
+import { readUserProfile } from '@/store/main/getters';
+import { IInvest } from '@/interfaces';
 import {
   dispatchInvest,
-} from "@/store/main/actions";
+} from '@/store/main/actions';
 
 @Component
 export default class CreateInvestment extends Vue {
@@ -51,7 +51,7 @@ export default class CreateInvestment extends Vue {
   public amount = 0;
   public duration = 0;
 
- 
+
   public reset() {
     this.amount = 0;
     this.duration = 14;
@@ -72,7 +72,7 @@ export default class CreateInvestment extends Vue {
         amount: this.amount,
         duration: this.duration,
         investment_id: Number(this.$router.currentRoute.params.id),
-        owner_id: this.user!.id
+        owner_id: this.user!.id,
       };
 
       await dispatchInvest(this.$store, updatedInvestment);

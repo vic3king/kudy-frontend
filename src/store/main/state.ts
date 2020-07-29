@@ -3,8 +3,8 @@ import {
   IInvestment,
   IWalletBalance,
   IInvestmentHistory,
-  ITransactionHistory
-} from "@/interfaces";
+  ITransactionHistory,
+} from '@/interfaces';
 
 export interface AppNotification {
   content: string;

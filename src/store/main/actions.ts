@@ -1,17 +1,17 @@
-import { api } from "@/api";
-import router from "@/router";
-import { getLocalToken, removeLocalToken, saveLocalToken } from "@/utils";
-import { AxiosError } from "axios";
-import { getStoreAccessors } from "typesafe-vuex";
-import { AdminState } from "../admin/state";
+import { api } from '@/api';
+import router from '@/router';
+import { getLocalToken, removeLocalToken, saveLocalToken } from '@/utils';
+import { AxiosError } from 'axios';
+import { getStoreAccessors } from 'typesafe-vuex';
+import { AdminState } from '../admin/state';
 import {
   IUserProfileCreate,
   IInvest,
   ITopUp,
   IWithdrawInvestment,
-} from "@/interfaces";
-import { ActionContext } from "vuex";
-import { State } from "../state";
+} from '@/interfaces';
+import { ActionContext } from 'vuex';
+import { State } from '../state';
 import {
   commitAddNotification,
   commitRemoveNotification,
@@ -22,8 +22,8 @@ import {
   commitSetUserWalletBalance,
   commitSetInvestmentHistory,
   commitSetTransactionHistory,
-} from "./mutations";
-import { AppNotification, MainState } from "./state";
+} from './mutations';
+import { AppNotification, MainState } from './state';
 
 type MainContext = ActionContext<MainState, State>;
 type AdminContex = ActionContext<AdminState, State>;
@@ -31,12 +31,12 @@ type AdminContex = ActionContext<AdminState, State>;
 export const actions = {
   async actionLogIn(
     context: MainContext,
-    payload: { username: string; password: string }
+    payload: { username: string; password: string },
   ) {
     try {
       const response = await api.logInGetToken(
         payload.username,
-        payload.password
+        payload.password,
       );
 
       const token = response.data.access_token;
@@ -49,8 +49,8 @@ export const actions = {
         await dispatchGetUserWallet(context);
         await dispatchRouteLoggedIn(context);
         commitAddNotification(context, {
-          content: "Logged in",
-          color: "success",
+          content: 'Logged in',
+          color: 'success',
         });
       } else {
         await dispatchLogOut(context);
@@ -107,21 +107,21 @@ export const actions = {
 
   async actionUpdateUserProfile(context: MainContext, payload) {
     try {
-      const loadingNotification = { content: "saving", showProgress: true };
+      const loadingNotification = { content: 'saving', showProgress: true };
       commitAddNotification(context, loadingNotification);
       const response = (
         await Promise.all([
           api.updateMe(context.state.token, payload),
           await new Promise((resolve, reject) =>
-            setTimeout(() => resolve(), 500)
+            setTimeout(() => resolve(), 500),
           ),
         ])
       )[0];
       commitSetUserProfile(context, response.data);
       commitRemoveNotification(context, loadingNotification);
       commitAddNotification(context, {
-        content: "Profile successfully updated",
-        color: "success",
+        content: 'Profile successfully updated',
+        color: 'success',
       });
     } catch (error) {
       await dispatchCheckApiError(context, error);
@@ -154,7 +154,7 @@ export const actions = {
   },
   async actionRemoveLogIn(context: MainContext) {
     removeLocalToken();
-    commitSetToken(context, "");
+    commitSetToken(context, '');
     commitSetLoggedIn(context, false);
   },
   async actionLogOut(context: MainContext) {
@@ -163,11 +163,11 @@ export const actions = {
   },
   async actionUserLogOut(context: MainContext) {
     await dispatchLogOut(context);
-    commitAddNotification(context, { content: "Logged out", color: "success" });
+    commitAddNotification(context, { content: 'Logged out', color: 'success' });
   },
   actionRouteLogOut(context: MainContext) {
-    if (router.currentRoute.path !== "/login") {
-      router.push("/login");
+    if (router.currentRoute.path !== '/login') {
+      router.push('/login');
     }
   },
   async actionCheckApiError(context: MainContext, payload: AxiosError) {
@@ -177,15 +177,15 @@ export const actions = {
   },
   actionRouteLoggedIn(context: MainContext) {
     if (
-      router.currentRoute.path === "/login" ||
-      router.currentRoute.path === "/"
+      router.currentRoute.path === '/login' ||
+      router.currentRoute.path === '/'
     ) {
-      router.push("/main");
+      router.push('/main');
     }
   },
   async removeNotification(
     context: MainContext,
-    payload: { notification: AppNotification; timeout: number }
+    payload: { notification: AppNotification; timeout: number },
   ) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -196,7 +196,7 @@ export const actions = {
   },
   async passwordRecovery(context: MainContext, payload: { username: string }) {
     const loadingNotification = {
-      content: "Sending password recovery email",
+      content: 'Sending password recovery email',
       showProgress: true,
     };
     try {
@@ -205,30 +205,30 @@ export const actions = {
         await Promise.all([
           api.passwordRecovery(payload.username),
           await new Promise((resolve, reject) =>
-            setTimeout(() => resolve(), 500)
+            setTimeout(() => resolve(), 500),
           ),
         ])
       )[0];
       commitRemoveNotification(context, loadingNotification);
       commitAddNotification(context, {
-        content: "Password recovery email sent",
-        color: "success",
+        content: 'Password recovery email sent',
+        color: 'success',
       });
       await dispatchLogOut(context);
     } catch (error) {
       commitRemoveNotification(context, loadingNotification);
       commitAddNotification(context, {
-        color: "error",
-        content: "Incorrect username",
+        color: 'error',
+        content: 'Incorrect username',
       });
     }
   },
   async resetPassword(
     context: MainContext,
-    payload: { password: string; token: string }
+    payload: { password: string; token: string },
   ) {
     const loadingNotification = {
-      content: "Resetting password",
+      content: 'Resetting password',
       showProgress: true,
     };
     try {
@@ -237,21 +237,21 @@ export const actions = {
         await Promise.all([
           api.resetPassword(payload.password, payload.token),
           await new Promise((resolve, reject) =>
-            setTimeout(() => resolve(), 500)
+            setTimeout(() => resolve(), 500),
           ),
         ])
       )[0];
       commitRemoveNotification(context, loadingNotification);
       commitAddNotification(context, {
-        content: "Password successfully reset",
-        color: "success",
+        content: 'Password successfully reset',
+        color: 'success',
       });
       await dispatchLogOut(context);
     } catch (error) {
       commitRemoveNotification(context, loadingNotification);
       commitAddNotification(context, {
-        color: "error",
-        content: "Error resetting password",
+        color: 'error',
+        content: 'Error resetting password',
       });
     }
   },
@@ -261,15 +261,15 @@ export const actions = {
       const response = await api.register(payload);
       if (response.data) {
         commitAddNotification(context, {
-          content: "Registration successful",
-          color: "success",
+          content: 'Registration successful',
+          color: 'success',
         });
-        router.push("/login");
+        router.push('/login');
       }
     } catch (err) {
       commitAddNotification(context, {
-        content: "Registration not successful",
-        color: "error",
+        content: 'Registration not successful',
+        color: 'error',
       });
     }
   },
@@ -280,15 +280,15 @@ export const actions = {
 
       if (response.data) {
         commitAddNotification(context, {
-          content: "Investment made successfully",
-          color: "success",
+          content: 'Investment made successfully',
+          color: 'success',
         });
-        router.push("/main/investments/all");
+        router.push('/main/investments/all');
       }
     } catch (err) {
       commitAddNotification(context, {
-        content: "Low wallet balance, kindly top up.",
-        color: "error",
+        content: 'Low wallet balance, kindly top up.',
+        color: 'error',
       });
     }
   },
@@ -297,20 +297,20 @@ export const actions = {
     try {
       const response = await api.withdrawInvestment(
         context.rootState.main.token,
-        payload
+        payload,
       );
 
       if (response.data) {
         commitAddNotification(context, {
-          content: "Investment withdrawal successfully",
-          color: "success",
+          content: 'Investment withdrawal successfully',
+          color: 'success',
         });
-        router.push("/main/profile/transactions");
+        router.push('/main/profile/transactions');
       }
     } catch (err) {
       commitAddNotification(context, {
-        color: "error",
-        content: "No funds available for this investment",
+        color: 'error',
+        content: 'No funds available for this investment',
       });
     }
   },
@@ -321,21 +321,21 @@ export const actions = {
 
       if (response.data) {
         commitAddNotification(context, {
-          content: "Top up successfully",
-          color: "success",
+          content: 'Top up successfully',
+          color: 'success',
         });
-        router.push("/main/investments/all");
+        router.push('/main/investments/all');
       }
     } catch (err) {
       commitAddNotification(context, {
-        content: "Top up not successful",
-        color: "error",
+        content: 'Top up not successful',
+        color: 'error',
       });
     }
   },
 };
 
-const { dispatch } = getStoreAccessors<MainState | any, State>("");
+const { dispatch } = getStoreAccessors<MainState | any, State>('');
 
 export const dispatchRegister = dispatch(actions.register);
 export const dispatchInvest = dispatch(actions.invest);
@@ -346,10 +346,10 @@ export const dispatchCheckLoggedIn = dispatch(actions.actionCheckLoggedIn);
 export const dispatchGetUserProfile = dispatch(actions.actionGetUserProfile);
 export const dispatchGetUserWallet = dispatch(actions.actionGetUserWallet);
 export const dispatchGetInvestmentsHistory = dispatch(
-  actions.actionGetInvestmentHistory
+  actions.actionGetInvestmentHistory,
 );
 export const dispatchGetTransactionsHistory = dispatch(
-  actions.actionGetTransactionHistory
+  actions.actionGetTransactionHistory,
 );
 export const dispatchLogIn = dispatch(actions.actionLogIn);
 export const dispatchLogOut = dispatch(actions.actionLogOut);
@@ -358,7 +358,7 @@ export const dispatchRemoveLogIn = dispatch(actions.actionRemoveLogIn);
 export const dispatchRouteLoggedIn = dispatch(actions.actionRouteLoggedIn);
 export const dispatchRouteLogOut = dispatch(actions.actionRouteLogOut);
 export const dispatchUpdateUserProfile = dispatch(
-  actions.actionUpdateUserProfile
+  actions.actionUpdateUserProfile,
 );
 export const dispatchRemoveNotification = dispatch(actions.removeNotification);
 export const dispatchPasswordRecovery = dispatch(actions.passwordRecovery);

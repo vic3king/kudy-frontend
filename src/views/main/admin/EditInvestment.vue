@@ -36,20 +36,20 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { IInvestment, IInvestmentCreate, IInvestmentUpdate } from "@/interfaces";
+import { Component, Vue } from 'vue-property-decorator';
+import { IInvestment, IInvestmentCreate, IInvestmentUpdate } from '@/interfaces';
 import {
   dispatchUpdateInvestment,
   dispatchGetInvestments,
   dispatchCreateInvestment,
-} from "@/store/admin/actions";
-import { readAdminOneInvestment } from "@/store/admin/getters";
+} from '@/store/admin/actions';
+import { readAdminOneInvestment } from '@/store/admin/getters';
 
 @Component
 export default class EditUser extends Vue {
   public valid = true;
-  public name: string = "";
-  public description: string = "";
+  public name: string = '';
+  public description: string = '';
   public rate: number = 0;
   public lockPeriod: number = 0;
 
@@ -87,13 +87,13 @@ export default class EditUser extends Vue {
         id: this.investment!.id,
         investment: updatedInvestment,
       });
-      this.$router.push("/main/admin/investments");
+      this.$router.push('/main/admin/investments');
     }
   }
 
   get investment() {
     return readAdminOneInvestment(this.$store)(
-      +this.$router.currentRoute.params.id
+      +this.$router.currentRoute.params.id,
     );
   }
 }

@@ -7,25 +7,25 @@ export interface IUserProfile {
 }
 
 export interface IWalletBalance {
-    balance: number
-    owner_id: number
-    id: number
+    balance: number;
+    owner_id: number;
+    id: number;
 }
 
 export interface IInvestmentHistory {
-    amount: number
-    duration: number,
-    returns: number,
-    created_at: Date,
-    id: number
+    amount: number;
+    duration: number;
+    returns: number;
+    created_at: Date;
+    id: number;
 }
 
 export interface ITransactionHistory {
-    transaction_type: string,
-    amount: number,
-    created_at: Date,
-    reference: string,
-    id: number,
+    transaction_type: string;
+    amount: number;
+    created_at: Date;
+    reference: string;
+    id: number;
 }
 export interface IUserProfileUpdate {
     email?: string;
@@ -52,9 +52,9 @@ export interface IInvestment {
 }
 
 export interface ITopUp {
-    owner_id?: number
-    balance?: number
-    amount: number
+    owner_id?: number;
+    balance?: number;
+    amount: number;
 }
 export interface IInvestmentCreate {
     name: string;
