@@ -34,8 +34,6 @@ export default class CreateInvestment extends Vue {
   public amount = 0;
 
   public async mounted() {
-    // console.log(this.state);
-    // await dispatchGetInvestments(this.$store);
     this.reset();
   }
 

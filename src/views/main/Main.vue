@@ -38,7 +38,7 @@
           </v-list-tile>
             <v-list-tile to="/main/profile/transactions">
             <v-list-tile-action>
-              <v-icon>vpn_key</v-icon>
+              <v-icon>euro</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>Wallet</v-list-tile-title>
@@ -50,7 +50,7 @@
           <v-subheader>Investments Menu</v-subheader>
           <v-list-tile to="/main/investments/all">
             <v-list-tile-action>
-              <v-icon>group</v-icon>
+              <v-icon>add_business</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>Invest</v-list-tile-title>
@@ -58,7 +58,7 @@
           </v-list-tile>
           <v-list-tile to="/main/investments/history/all">
             <v-list-tile-action>
-              <v-icon>group</v-icon>
+              <v-icon>account_balance</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>My Investments</v-list-tile-title>

@@ -4,8 +4,12 @@ import { getLocalToken, removeLocalToken, saveLocalToken } from "@/utils";
 import { AxiosError } from "axios";
 import { getStoreAccessors } from "typesafe-vuex";
 import { AdminState } from "../admin/state";
-import { IUserProfileCreate, IInvest, ITopUp } from "@/interfaces";
-import { commitSetUser } from "../admin/mutations";
+import {
+  IUserProfileCreate,
+  IInvest,
+  ITopUp,
+  IWithdrawInvestment,
+} from "@/interfaces";
 import { ActionContext } from "vuex";
 import { State } from "../state";
 import {
@@ -17,7 +21,7 @@ import {
   commitSetUserProfile,
   commitSetUserWalletBalance,
   commitSetInvestmentHistory,
-  commitSetTransactionHistory
+  commitSetTransactionHistory,
 } from "./mutations";
 import { AppNotification, MainState } from "./state";
 
@@ -289,6 +293,28 @@ export const actions = {
     }
   },
 
+  async withdrawInvestment(context: MainContext, payload: IWithdrawInvestment) {
+    try {
+      const response = await api.withdrawInvestment(
+        context.rootState.main.token,
+        payload
+      );
+
+      if (response.data) {
+        commitAddNotification(context, {
+          content: "Investment withdrawal successfully",
+          color: "success",
+        });
+        router.push("/main/profile/transactions");
+      }
+    } catch (err) {
+      commitAddNotification(context, {
+        color: "error",
+        content: "No funds available for this investment",
+      });
+    }
+  },
+
   async topUp(context: MainContext, payload: ITopUp) {
     try {
       const response = await api.topUp(context.rootState.main.token, payload);
@@ -313,6 +339,7 @@ const { dispatch } = getStoreAccessors<MainState | any, State>("");
 
 export const dispatchRegister = dispatch(actions.register);
 export const dispatchInvest = dispatch(actions.invest);
+export const dispatchWithdrawInvestment = dispatch(actions.withdrawInvestment);
 export const dispatchTopUp = dispatch(actions.topUp);
 export const dispatchCheckApiError = dispatch(actions.actionCheckApiError);
 export const dispatchCheckLoggedIn = dispatch(actions.actionCheckLoggedIn);

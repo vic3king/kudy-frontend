@@ -73,3 +73,8 @@ export interface IInvest {
     owner_id: number;
     investment_id: number;
 }
+
+export interface IWithdrawInvestment {
+    investment_id: number;
+    // owner_id: number;
+}

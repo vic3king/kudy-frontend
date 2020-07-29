@@ -12,6 +12,7 @@ import {
   ITopUp,
   IInvestmentHistory,
   ITransactionHistory,
+  IWithdrawInvestment
 } from "./interfaces";
 
 function authHeaders(token: string) {
@@ -108,6 +109,14 @@ export const api = {
   async invest(token: string, data: IInvest) {
     return axios.post(
       `${apiUrl}/api/v1/investments/invest`,
+      data,
+      authHeaders(token)
+    );
+  },
+
+  async withdrawInvestment(token: string, data: IWithdrawInvestment) {
+    return axios.post(
+      `${apiUrl}/api/v1/investments/withdraw`,
       data,
       authHeaders(token)
     );
