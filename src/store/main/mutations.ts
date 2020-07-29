@@ -1,4 +1,10 @@
-import { IUserProfile, IInvestment, IWalletBalance } from "@/interfaces";
+import {
+  IUserProfile,
+  IInvestment,
+  IWalletBalance,
+  IInvestmentHistory,
+  ITransactionHistory,
+} from "@/interfaces";
 import { MainState, AppNotification } from "./state";
 import { getStoreAccessors } from "typesafe-vuex";
 import { State } from "../state";
@@ -21,6 +27,12 @@ export const mutations = {
   },
   setInvestment(state: MainState, payload: IInvestment) {
     state.investment = payload;
+  },
+  setInvestmentHistory(state: MainState, payload: IInvestmentHistory[]) {
+    state.investmentHistory = payload;
+  },
+  setTransactionHistory(state: MainState, payload: ITransactionHistory[]) {
+    state.transactionHistory = payload;
   },
   setDashboardMiniDrawer(state: MainState, payload: boolean) {
     state.dashboardMiniDrawer = payload;
@@ -50,7 +62,15 @@ export const commitSetLoggedIn = commit(mutations.setLoggedIn);
 export const commitSetLogInError = commit(mutations.setLogInError);
 export const commitSetToken = commit(mutations.setToken);
 export const commitSetUserProfile = commit(mutations.setUserProfile);
-export const commitSetUserWalletBalance = commit(mutations.setUserWalletBalance);
+export const commitSetUserWalletBalance = commit(
+  mutations.setUserWalletBalance
+);
+export const commitSetInvestmentHistory = commit(
+  mutations.setInvestmentHistory
+);
+export const commitSetTransactionHistory = commit(
+  mutations.setTransactionHistory
+);
 export const commitSetInvestment = commit(mutations.setInvestment);
 export const commitAddNotification = commit(mutations.addNotification);
 export const commitRemoveNotification = commit(mutations.removeNotification);

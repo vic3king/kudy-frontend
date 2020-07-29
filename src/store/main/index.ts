@@ -10,6 +10,8 @@ const defaultState: MainState = {
   userProfile: null,
   walletBalance: null,
   investment: null,
+  investmentHistory: [],
+  transactionHistory: [],
   dashboardMiniDrawer: false,
   dashboardShowDrawer: true,
   notifications: [],

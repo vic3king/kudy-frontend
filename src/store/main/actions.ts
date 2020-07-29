@@ -4,7 +4,7 @@ import { getLocalToken, removeLocalToken, saveLocalToken } from "@/utils";
 import { AxiosError } from "axios";
 import { getStoreAccessors } from "typesafe-vuex";
 import { AdminState } from "../admin/state";
-import { IUserProfileCreate, IInvest,ITopUp } from "@/interfaces";
+import { IUserProfileCreate, IInvest, ITopUp } from "@/interfaces";
 import { commitSetUser } from "../admin/mutations";
 import { ActionContext } from "vuex";
 import { State } from "../state";
@@ -16,6 +16,8 @@ import {
   commitSetToken,
   commitSetUserProfile,
   commitSetUserWalletBalance,
+  commitSetInvestmentHistory,
+  commitSetTransactionHistory
 } from "./mutations";
 import { AppNotification, MainState } from "./state";
 
@@ -68,9 +70,31 @@ export const actions = {
     try {
       const response = await api.getMyWallet(context.state.token);
 
-      console.log(response.data)
       if (response.data) {
         commitSetUserWalletBalance(context, response.data);
+      }
+    } catch (error) {
+      await dispatchCheckApiError(context, error);
+    }
+  },
+  async actionGetInvestmentHistory(context: MainContext) {
+    try {
+      const response = await api.getMyInvestmentHistory(context.state.token);
+
+      if (response.data) {
+        commitSetInvestmentHistory(context, response.data);
+      }
+    } catch (error) {
+      await dispatchCheckApiError(context, error);
+    }
+  },
+
+  async actionGetTransactionHistory(context: MainContext) {
+    try {
+      const response = await api.getMyTransactionHistory(context.state.token);
+
+      if (response.data) {
+        commitSetTransactionHistory(context, response.data);
       }
     } catch (error) {
       await dispatchCheckApiError(context, error);
@@ -294,6 +318,12 @@ export const dispatchCheckApiError = dispatch(actions.actionCheckApiError);
 export const dispatchCheckLoggedIn = dispatch(actions.actionCheckLoggedIn);
 export const dispatchGetUserProfile = dispatch(actions.actionGetUserProfile);
 export const dispatchGetUserWallet = dispatch(actions.actionGetUserWallet);
+export const dispatchGetInvestmentsHistory = dispatch(
+  actions.actionGetInvestmentHistory
+);
+export const dispatchGetTransactionsHistory = dispatch(
+  actions.actionGetTransactionHistory
+);
 export const dispatchLogIn = dispatch(actions.actionLogIn);
 export const dispatchLogOut = dispatch(actions.actionLogOut);
 export const dispatchUserLogOut = dispatch(actions.actionUserLogOut);

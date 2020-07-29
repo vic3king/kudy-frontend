@@ -3,7 +3,7 @@
     <v-toolbar light>
       <v-toolbar-title>Manage Investments</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn color="primary" to="main/admin/investments/create">Create Investment</v-btn>
+      <v-btn color="primary" to="/main/admin/investments/create">Create Investment</v-btn>
     </v-toolbar>
     <v-data-table :headers="headers" :items="investments">
       <template slot="items" slot-scope="props">

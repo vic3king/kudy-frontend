@@ -4,6 +4,7 @@ import {
   IInvestmentUpdate,
   IUserProfileUpdate,
   IInvestmentCreate,
+  IUserProfileCreate
 } from "@/interfaces";
 import { State } from "../state";
 import { AdminState } from "./state";
@@ -87,7 +88,7 @@ export const actions = {
           ),
         ])
       )[0];
-   
+
       commitSetInvestment(context, response.data);
       commitRemoveNotification(context, loadingNotification);
       commitAddNotification(context, {
@@ -127,6 +128,28 @@ export const actions = {
       await dispatchCheckApiError(context, error);
     }
   },
+  async actionCreateUser(context: MainContext, payload: IUserProfileCreate) {
+    try {
+      const loadingNotification = { content: "saving", showProgress: true };
+      commitAddNotification(context, loadingNotification);
+      const response = (
+        await Promise.all([
+          api.createUser(context.rootState.main.token, payload),
+          await new Promise((resolve, reject) =>
+            setTimeout(() => resolve(), 500)
+          ),
+        ])
+      )[0];
+      commitSetUser(context, response.data);
+      commitRemoveNotification(context, loadingNotification);
+      commitAddNotification(context, {
+        content: "User successfully created",
+        color: "success",
+      });
+    } catch (error) {
+      await dispatchCheckApiError(context, error);
+    }
+  },
 };
 
 const { dispatch } = getStoreAccessors<AdminState, State>("");
@@ -137,4 +160,7 @@ export const dispatchCreateInvestment = dispatch(
 export const dispatchGetInvestments = dispatch(actions.actionGetInvestments);
 export const dispatchGetUsers = dispatch(actions.actionGetUsers);
 export const dispatchUpdateUser = dispatch(actions.actionUpdateUser);
-export const dispatchUpdateInvestment = dispatch(actions.actionUpdateInvestment);
+export const dispatchUpdateInvestment = dispatch(
+  actions.actionUpdateInvestment
+);
+export const dispatchCreateUser = dispatch(actions.actionCreateUser);

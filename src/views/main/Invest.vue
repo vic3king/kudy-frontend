@@ -8,7 +8,7 @@
         <template>
           <v-form v-model="valid" ref="form" lazy-validation>
             <v-text-field type="number" label="Amount" v-model="amount" required></v-text-field>
-             <v-text-field type="string" label="Duration" v-model="duration" required></v-text-field>
+             <v-text-field type="string" label="Duration(days till maturity)" v-model="duration" required></v-text-field>
             <!-- <v-row>
               <v-col cols="12" sm="6">
                 <v-date-picker v-model="date" range></v-date-picker>
@@ -47,47 +47,14 @@ import {
 
 @Component
 export default class CreateInvestment extends Vue {
-  // public data() {
-  //   dates: ["2019-09-10", "2019-09-20"];
-
-  //   const computed = {
-  //   dateRangeText() {
-  //     return dates.join(" ~ ");
-  //   },
-  // };
-  // }
-
   public valid = false;
   public amount = 0;
-  public duration = ["2019-09-10", "2019-09-20"];
-  // public dateRangeText = "";
+  public duration = 0;
 
-  public async mounted() {
-    // console.log(this.state);
-    // await dispatchGetInvestments(this.$store);
-    this.reset();
-  }
-
-  // public data() {
-  //   return {
-  //     date: ["2019-09-10", "2019-09-20"],
-  //   };
-  // }
-
-  // get dateRangeText() {
-  //   return this.date.join(" ~ ");
-  // }
-
-  // public async computed() {
-  //   return {
-  //     dateRangeText: () => {
-  //       return this.date.join(" ~ ");
-  //     },
-  //   };
-  // }
+ 
   public reset() {
     this.amount = 0;
-    this.duration = [];
+    this.duration = 14;
     this.$validator.reset();
   }
 

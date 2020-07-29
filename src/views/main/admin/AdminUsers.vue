@@ -33,7 +33,6 @@ import { Store } from 'vuex';
 import { IUserProfile } from '@/interfaces';
 import { readAdminUsers } from '@/store/admin/getters';
 import { dispatchGetUsers } from '@/store/admin/actions';
-
 @Component
 export default class AdminUsers extends Vue {
   public headers = [
@@ -75,7 +74,6 @@ export default class AdminUsers extends Vue {
   get users() {
     return readAdminUsers(this.$store);
   }
-
   public async mounted() {
     await dispatchGetUsers(this.$store);
   }

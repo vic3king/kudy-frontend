@@ -1,0 +1,90 @@
+<template>
+  <v-layout>
+    <v-flex>
+      <v-card>
+        <v-container fluid grid-list-md>
+          <v-layout row wrap>
+            <v-flex xs12 md6 lg3 v-for="history in investments" :key="history.id">
+              <v-card flat tile>
+                <v-img src="https://cdn.vuetifyjs.com/images/cards/desert.jpg" aspect-ratio="2.75"></v-img>
+                <v-card-title primary-title class="justify-center">
+                  <div>
+                    <h3 class="headline mb-0">Investment name</h3>
+                    <div>Amount: {{history.amount}}</div>
+                    <div>Duration: {{history.duration}}</div>
+                    <div>Returns: #{{history.returns}}</div>
+                    <div>Date: {{(new Date(history.created_at)).toString().replace(/\S+\s(\S+)\s(\d+)\s(\d+)\s.*/,'$2-$1-$3')}}</div>
+                  </div>
+                </v-card-title>
+
+                <v-card-actions class="justify-center">
+                  <v-btn flat color="orange">Withdraw</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-card>
+    </v-flex>
+  </v-layout>
+</template>
+
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import { Store } from "vuex";
+import { IInvestment } from "@/interfaces";
+import { readInvestments } from "@/store/admin/getters";
+import {
+  dispatchInvest,
+  dispatchGetInvestmentsHistory,
+} from "@/store/main/actions";
+import { readInvestmentHistory } from "../../store/main/getters";
+
+@Component
+export default class Investments extends Vue {
+  public headers = [
+    {
+      text: "Name",
+      sortable: true,
+      value: "name",
+      align: "left",
+    },
+    {
+      text: "Description",
+      sortable: true,
+      value: "description",
+      align: "left",
+    },
+    {
+      text: "Name",
+      sortable: true,
+      value: "name",
+      align: "left",
+    },
+    {
+      text: "Rate",
+      sortable: true,
+      value: "rate",
+      align: "left",
+    },
+    {
+      text: "Lock Period",
+      sortable: true,
+      value: "lock_period",
+      align: "left",
+    },
+    {
+      text: "Actions",
+      value: "id",
+    },
+  ];
+  get investments() {
+    return readInvestmentHistory(this.$store);
+  }
+
+  public async mounted() {
+    await dispatchGetInvestmentsHistory(this.$store);
+  }
+}
+</script>

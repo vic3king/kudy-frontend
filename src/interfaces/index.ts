@@ -12,6 +12,21 @@ export interface IWalletBalance {
     id: number
 }
 
+export interface IInvestmentHistory {
+    amount: number
+    duration: number,
+    returns: number,
+    created_at: Date,
+    id: number
+}
+
+export interface ITransactionHistory {
+    transaction_type: string,
+    amount: number,
+    created_at: Date,
+    reference: string,
+    id: number,
+}
 export interface IUserProfileUpdate {
     email?: string;
     full_name?: string;
@@ -54,7 +69,7 @@ export interface IInvestmentUpdate {
 }
 export interface IInvest {
     amount: number;
-    duration: string[];
+    duration: number;
     owner_id: number;
     investment_id: number;
 }

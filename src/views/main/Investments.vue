@@ -26,11 +26,11 @@
               :to="{name: 'main-investments-invest', params: {id: investment.id}}"
               color="orange"
             >Invest</v-btn>
-            <v-btn
+            <!-- <v-btn
               flat
               :to="{name: 'main-investments-invest', params: {id: investment.id}}"
               color="orange"
-            >Withdraw</v-btn>
+            >Withdraw</v-btn> -->
           </v-card-actions>
         </v-expansion-panel-content>
       </v-expansion-panel>
