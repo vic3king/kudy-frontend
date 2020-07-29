@@ -28,7 +28,7 @@
                     </v-card-title>
 
                     <v-card-actions class="justify-center">
-                      <v-btn flat color="orange">Withdraw</v-btn>
+                      <v-btn flat color="orange" @click="withdrawInvestment(history.id)">Withdraw</v-btn>
                     </v-card-actions>
                   </v-card>
                 </v-flex>
@@ -45,11 +45,13 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { Store } from "vuex";
-import { IInvestment } from "@/interfaces";
+import { IInvestment, IWithdrawInvestment } from "@/interfaces";
 import { readInvestments } from "@/store/admin/getters";
 import {
   dispatchInvest,
   dispatchGetInvestmentsHistory,
+  dispatchWithdrawInvestment,
+  dispatchGetUserWallet,
 } from "@/store/main/actions";
 import { readInvestmentHistory } from "../../store/main/getters";
 
@@ -97,6 +99,15 @@ export default class Investments extends Vue {
 
   public async mounted() {
     await dispatchGetInvestmentsHistory(this.$store);
+  }
+
+  public async withdrawInvestment(investment_id) {
+    const withdrawInvestment: IWithdrawInvestment = {
+      investment_id,
+    };
+
+    await dispatchWithdrawInvestment(this.$store, withdrawInvestment);
+    await dispatchGetUserWallet(this.$store);
   }
 }
 </script>

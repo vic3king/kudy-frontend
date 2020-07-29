@@ -76,5 +76,4 @@ export interface IInvest {
 
 export interface IWithdrawInvestment {
     investment_id: number;
-    // owner_id: number;
 }

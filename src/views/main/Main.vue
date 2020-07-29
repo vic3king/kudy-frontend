@@ -36,7 +36,7 @@
               <v-list-tile-title>Change Password</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-            <v-list-tile to="/main/profile/transactions">
+          <v-list-tile to="/main/profile/transactions">
             <v-list-tile-action>
               <v-icon>euro</v-icon>
             </v-list-tile-action>
@@ -46,7 +46,7 @@
           </v-list-tile>
         </v-list>
         <v-divider></v-divider>
-        <v-list subheader>
+        <v-list subheader  v-show="hasUserAccess">
           <v-subheader>Investments Menu</v-subheader>
           <v-list-tile to="/main/investments/all">
             <v-list-tile-action>
@@ -65,7 +65,6 @@
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
-        
 
         <v-list subheader v-show="hasAdminAccess">
           <v-subheader>Admin</v-subheader>
@@ -85,14 +84,6 @@
               <v-list-tile-title>Manage Investments</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-          <!-- <v-list-tile to="/main/admin/users/create">
-            <v-list-tile-action>
-              <v-icon>person_add</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Create Investment</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>-->
         </v-list>
         <v-spacer></v-spacer>
         <v-list>
@@ -162,6 +153,7 @@ import {
   readDashboardMiniDrawer,
   readDashboardShowDrawer,
   readHasAdminAccess,
+  readHasUserAccess
 } from "@/store/main/getters";
 import {
   commitSetDashboardShowDrawer,
@@ -219,6 +211,9 @@ export default class Main extends Vue {
     return readHasAdminAccess(this.$store);
   }
 
+  public get hasUserAccess() {
+    return readHasUserAccess(this.$store);
+  }
   public async logout() {
     await dispatchUserLogOut(this.$store);
   }
