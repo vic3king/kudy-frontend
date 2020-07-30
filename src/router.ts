@@ -33,14 +33,14 @@ export default new Router({
           path: 'recover-password',
           component: () =>
             import(
-              /* webpackChunkName: "recover-password" */ './views/PasswordRecovery.vue',
+              /* webpackChunkName: "recover-password" */ './views/PasswordRecovery.vue'
             ),
         },
         {
           path: 'reset-password',
           component: () =>
             import(
-              /* webpackChunkName: "reset-password" */ './views/ResetPassword.vue',
+              /* webpackChunkName: "reset-password" */ './views/ResetPassword.vue'
             ),
         },
         {
@@ -52,7 +52,7 @@ export default new Router({
               path: 'dashboard',
               component: () =>
                 import(
-                  /* webpackChunkName: "main-dashboard" */ './views/main/Dashboard.vue',
+                  /* webpackChunkName: "main-dashboard" */ './views/main/Dashboard.vue'
                 ),
             },
             {
@@ -64,28 +64,28 @@ export default new Router({
                   path: 'view',
                   component: () =>
                     import(
-                      /* webpackChunkName: "main-profile" */ './views/main/profile/UserProfile.vue',
+                      /* webpackChunkName: "main-profile" */ './views/main/profile/UserProfile.vue'
                     ),
                 },
                 {
                   path: 'edit',
                   component: () =>
                     import(
-                      /* webpackChunkName: "main-profile-edit" */ './views/main/profile/UserProfileEdit.vue',
+                      /* webpackChunkName: "main-profile-edit" */ './views/main/profile/UserProfileEdit.vue'
                     ),
                 },
                 {
                   path: 'password',
                   component: () =>
                     import(
-                      /* webpackChunkName: "main-profile-password" */ './views/main/profile/UserProfileEditPass.vue',
+                      /* webpackChunkName: "main-profile-password" */ './views/main/profile/UserProfileEditPass.vue'
                     ),
                 },
                 {
                   path: 'transactions',
                   component: () =>
                     import(
-                      /* webpackChunkName: "main-profile-transactions" */ './views/main/profile/Transactions.vue',
+                      /* webpackChunkName: "main-profile-transactions" */ './views/main/profile/Transactions.vue'
                     ),
                 },
               ],
@@ -112,7 +112,7 @@ export default new Router({
               path: 'admin',
               component: () =>
                 import(
-                  /* webpackChunkName: "main-admin" */ './views/main/admin/Admin.vue',
+                  /* webpackChunkName: "main-admin" */ './views/main/admin/Admin.vue'
                 ),
               redirect: 'admin/users/all',
               children: [
@@ -124,7 +124,7 @@ export default new Router({
                   path: 'users/all',
                   component: () =>
                     import(
-                      /* webpackChunkName: "main-admin-users" */ './views/main/admin/AdminUsers.vue',
+                      /* webpackChunkName: "main-admin-users" */ './views/main/admin/AdminUsers.vue'
                     ),
                 },
                 {
@@ -132,7 +132,7 @@ export default new Router({
                   name: 'main-admin-users-edit',
                   component: () =>
                     import(
-                      /* webpackChunkName: "main-admin-users-edit" */ './views/main/admin/EditUser.vue',
+                      /* webpackChunkName: "main-admin-users-edit" */ './views/main/admin/EditUser.vue'
                     ),
                 },
                 {
@@ -140,7 +140,7 @@ export default new Router({
                   name: 'main-admin-users-create',
                   component: () =>
                     import(
-                      /* webpackChunkName: "main-admin-users-create" */ './views/main/admin/CreateUser.vue',
+                      /* webpackChunkName: "main-admin-users-create" */ './views/main/admin/CreateUser.vue'
                     ),
                 },
                 {
