@@ -283,7 +283,7 @@ export const actions = {
           content: 'Investment made successfully',
           color: 'success',
         });
-        router.push('/main/investments/all');
+        router.push('/main/investments/history/all');
       }
     } catch (err) {
       commitAddNotification(context, {
@@ -302,7 +302,7 @@ export const actions = {
 
       if (response.data) {
         commitAddNotification(context, {
-          content: 'Investment withdrawal successfully',
+          content: 'Investment withdrawn successfully',
           color: 'success',
         });
         router.push('/main/profile/transactions');
